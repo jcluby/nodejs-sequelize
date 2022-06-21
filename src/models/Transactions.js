@@ -73,8 +73,9 @@ class Transactions extends Model {
 
   static getPagination(page, size, total){
     const limitSize = size ? +size : 3;
-    const offset = page && total > limitSize ? page * limitSize : 0;
-    const nextPage = page * limitSize < total ? true : (page == 1 ? true : false);
+    const offset = page == 1 ? 0 : (page - 1) * limitSize;
+    let nextPage = ((page - 1) * limitSize < total) ? true : false;
+    nextPage = page == 1 ? true : nextPage; // page 1
     return { limitSize, offset, nextPage };
   };
   
